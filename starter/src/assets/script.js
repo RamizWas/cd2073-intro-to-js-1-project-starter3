@@ -27,31 +27,33 @@ const products = [
 /* Declare an empty array named cart to hold the items in the cart */
 const cart = [];
 let paid = 0;
+function findProductByID(productId){
+  return products.find(item => item.productId === productId);
+
+}
+function findProductIndexById(productId) {
+  return cart.findIndex(item => item.productId === productId);
+}
 
 function addProductToCart(productId) {
-  const productIndex = cart.findIndex(item => item.productId === productId);
-  const product = products.find(item => item.productId === productId);
+  const productIndex = findProductIndexById(productId);
+  const product = findProductByID(productId);
 
   if (productIndex !== -1) {
     // If the product is already in the cart, increase its quantity
 
     product.quantity = product.quantity + 1;
-    console.log(products);
     cart[productIndex].quantity += 1;
   } else {
-    console.log("product does not exist");
     // If the product is not in the cart, find it in the products array
 
 
     if (product) {
-      console.log("editing quantity");
       // Add the product to the cart with a quantity of 1
       product.quantity = product.quantity + 1;
-      console.log(products)
 
       const addedProduct = { ...product, quantity: 1 };
       cart.push(addedProduct);
-      console.log(cart);
     }
   }
 
@@ -66,8 +68,8 @@ function addProductToCart(productId) {
 
 function increaseQuantity(productId) {
   // Find the index of the product with the given productId in the cart
-  const productIndex = cart.findIndex(item => item.productId === productId);
-  const product = products.find(item => item.productId === productId);
+  const productIndex = findProductIndexById(productId);
+  const product = findProductByID(productId);
 
   if (productIndex !== -1) {
     // If the product is in the cart, increase its quantity
@@ -78,8 +80,8 @@ function increaseQuantity(productId) {
 
 function decreaseQuantity(productId) {
   // Find the index of the product with the given productId in the cart
-  const productIndex = cart.findIndex(item => item.productId === productId);
-  const product = products.find(item => item.productId === productId);
+  const productIndex = findProductIndexById(productId);
+  const product = findProductByID(productId);
 
   if (productIndex !== -1) {
     // If the product is in the cart, decrease its quantity by 1
@@ -96,8 +98,8 @@ function decreaseQuantity(productId) {
 
 function removeProductFromCart(productId) {
   // Find the index of the product with the given productId in the cart
-  const productIndex = cart.findIndex(item => item.productId === productId);
-  const product = products.find(item => item.productId === productId);
+  const productIndex = findProductIndexById(productId);
+  const product = findProductByID(productId);
 
   if (productIndex !== -1) {
     product.quantity = 0;
@@ -139,7 +141,6 @@ function pay(amount) {
     
     emptyCart();
     
-    console.log("empty")
   }
   return balance;
 }
